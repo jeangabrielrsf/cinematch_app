@@ -11,7 +11,8 @@ import { useCallback, useContext, useEffect, useState } from "react";
 export default function Recommendations() {
     const [recommendedMovies, setRecommendedMovies] = useState([]);
     const [recommendedSeries, setRecommendedSeries] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loadingSeries, setLoadingSeries] = useState(true);
+    const [loadingMovies, setLoadingMovies] = useState(true);
     const context = useContext(UserTokenContext);
 
     const { userToken } = context;
@@ -19,17 +20,18 @@ export default function Recommendations() {
     const fecthRecommendedMovies = useCallback(async () => {
         const data = await getMovieRecommendations(userToken);
         setRecommendedMovies(data);
+        setLoadingMovies(false);
     }, [userToken]);
 
     const fetchRecommendedSeries = useCallback(async () => {
         const data = await getSerieRecommendations(userToken);
         setRecommendedSeries(data);
+        setLoadingSeries(false);
     }, [userToken]);
 
     useEffect(() => {
         fecthRecommendedMovies().catch(console.error);
         fetchRecommendedSeries().catch(console.error);
-        setLoading(false);
     }, [fetchRecommendedSeries, fecthRecommendedMovies]);
 
     return (
@@ -44,8 +46,10 @@ export default function Recommendations() {
                     Recomendações de filmes
                 </Typography>
                 <Grid container spacing={3} justifyContent={"center"}>
-                    {loading ? (
-                        <CircularProgress />
+                    {loadingMovies ? (
+                        <Box marginTop={"30px"}>
+                            <CircularProgress size={50} />
+                        </Box>
                     ) : recommendedMovies.length === 0 ? (
                         <Box margin={"30px 0"}>
                             <Typography variant="h6" color={"#fff"}>
@@ -73,8 +77,10 @@ export default function Recommendations() {
                     Recomendações de seriados
                 </Typography>
                 <Grid container spacing={3} justifyContent={"center"}>
-                    {loading ? (
-                        <CircularProgress />
+                    {loadingSeries ? (
+                        <Box marginTop={"30px"}>
+                            <CircularProgress size={50} />
+                        </Box>
                     ) : recommendedSeries.length === 0 ? (
                         <Box margin={"30px 0"}>
                             <Typography variant="h6" color={"#fff"}>
