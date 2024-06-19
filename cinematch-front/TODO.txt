@@ -1,0 +1,5 @@
+- Popup ao selecionar algum filme/śerie da barra de busca
+- Paginação dos filmes/séries populares DONE (feia)
+- Loading ao carregar conteúdo favoritado DONE
+- Exibir onde assistir os conteúdos DONE
+- Se possível, subir na internet

@@ -1,0 +1,49 @@
+services:
+  cinematch_database:
+    image: postgres
+    container_name: cinematch_database
+    restart: always
+    ports:
+      - 2345:5432
+    env_file:
+      - ./cinematch-back/.env
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+    
+  fast:
+    container_name: fast
+    build: ./cinematch-back
+    restart: always
+    ports:
+      - 8000:8000
+    depends_on:
+      - cinematch_database
+    env_file:
+      - ./cinematch-back/.env
+
+  
+  react:
+    container_name: react
+    build: ./cinematch-front
+    env_file:
+      - ./cinematch-front/.env
+    volumes:
+      - react-vol:/var/www/html
+    depends_on:
+      - fast
+  
+  nginx:
+    container_name: nginx_app
+    build: ./nginx
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - react-vol:/var/www/html
+    depends_on:
+      - cinematch_database
+      - fast
+      - react
+volumes:
+  postgres-volume:
+  react-vol:
