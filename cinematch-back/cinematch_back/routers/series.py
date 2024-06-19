@@ -12,7 +12,7 @@ from cinematch_back.schemas import SerieList, SeriePublic, SerieSchema
 from cinematch_back.security import get_current_user
 from cinematch_back.service import get_recommendation_series_by_id
 
-router = APIRouter(prefix='/api/series', tags=['series'])
+router = APIRouter(prefix='/series', tags=['series'])
 
 CurrentSession = Annotated[Session, Depends(get_session)]
 CurrentUser = Annotated[User, Depends(get_current_user)]
