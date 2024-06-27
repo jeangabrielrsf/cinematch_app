@@ -10,6 +10,7 @@ import {
     Pagination,
     Stack,
 } from "@mui/material";
+import { SerieData } from "@/utils/contentUtils";
 
 export default function PopularSeriesContent() {
     const [popularSeries, setPopularSeries] = useState([]);
@@ -34,22 +35,19 @@ export default function PopularSeriesContent() {
 
     return (
         <Container>
-            <Grid container columns={4}>
-                <SeriesContainer>
-                    {loading == true ? (
-                        <Box display={"flex"} justifyContent={"center"}>
-                            <CircularProgress
-                                size="large"
-                                sx={{ margin: "5px auto" }}
-                            />
-                        </Box>
-                    ) : (
-                        popularSeries.map((serie, index) => {
-                            return <SerieContent serie={serie} key={index} />;
-                        })
-                    )}
-                </SeriesContainer>
-            </Grid>
+            {loading ? (
+                <Box display={"flex"} justifyContent={"center"}>
+                    <CircularProgress size={100} />
+                </Box>
+            ) : (
+                <Grid container columns={4}>
+                    <SeriesContainer>
+                        {popularSeries.map((serie: SerieData, index) => {
+                            return <SerieContent key={index} serie={serie} />;
+                        })}
+                    </SeriesContainer>
+                </Grid>
+            )}
             <Stack spacing={2}>
                 <Pagination
                     onChange={handlePage}

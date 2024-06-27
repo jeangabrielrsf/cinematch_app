@@ -41,26 +41,24 @@ export default function PopularMovieContent() {
     }
     return (
         <Container>
-            <Grid container columns={4}>
-                <MoviesContainer>
-                    {loading ? (
-                        <Box display={"flex"} justifyContent={"center"}>
-                            <CircularProgress
-                                size={40}
-                                sx={{ margin: "5px auto" }}
-                            />
-                        </Box>
-                    ) : (
-                        moviesContext.popularMovies.map(
+            {loading ? (
+                <Box display={"flex"} justifyContent={"center"}>
+                    <CircularProgress size={100} />
+                </Box>
+            ) : (
+                <Grid container columns={4}>
+                    <MoviesContainer>
+                        {moviesContext.popularMovies.map(
                             (movie: MovieData, index) => {
                                 return (
                                     <MovieContent key={index} movie={movie} />
                                 );
                             }
-                        )
-                    )}
-                </MoviesContainer>
-            </Grid>
+                        )}
+                    </MoviesContainer>
+                </Grid>
+            )}
+
             <Stack spacing={0}>
                 <Pagination
                     onChange={handlePage}

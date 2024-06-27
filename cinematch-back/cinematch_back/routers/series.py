@@ -70,7 +70,7 @@ def list_recommended_series(session: CurrentSession, user: CurrentUser):
     for serie in series:
         recommended_list = get_recommendation_series_by_id(serie.tmdb_id)
         for item in recommended_list['results']:
-            if item['name'] in final_list or item['name'] in series:
+            if item['name'] in final_list or item['name'] == serie.name:
                 continue
             final_list.append(item)
 

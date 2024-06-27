@@ -140,6 +140,7 @@ export default function Header() {
                         variant="h3"
                         onClick={() => navigate("/")}
                         textAlign="center"
+                        sx={{ ":hover": { cursor: "pointer" } }}
                     >
                         CineMatch
                     </Typography>

@@ -71,7 +71,7 @@ def list_recommended_movies(session: CurrentSession, user: CurrentUser):
         recommended_list = get_recommendation_by_id(movie.tmdb_id)
 
         for item in recommended_list['results']:
-            if item['title'] in final_list or item['title'] in movies:
+            if item['title'] in final_list or item['title'] == movie.title:
                 continue
             final_list.append(item)
 
